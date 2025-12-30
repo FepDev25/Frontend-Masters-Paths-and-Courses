@@ -66,3 +66,19 @@ def merge(left: list, right: list):
         sorted_array.extend(right[right_index:])
 
     return sorted_array
+
+def quick_sort(array: list):
+    if len(array) <= 1:
+        return array
+
+    pivot = array[len(array)-1]
+    left = []
+    right = []
+
+    for i in range(len(array) - 1):
+        if array[i] < pivot:
+            left.append(array[i])
+        else:   
+            right.append(array[i])
+
+    return quick_sort(left) + [pivot] + quick_sort(right)
