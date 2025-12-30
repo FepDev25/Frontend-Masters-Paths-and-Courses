@@ -21,6 +21,8 @@ def test_bubble_sort_varios_casos(entrada, esperado):
 
     #resultado = bubble_sort(entrada.copy())
     
-    resultado = insertion_sort(entrada.copy())
+    #resultado = insertion_sort(entrada.copy())
+
+    resultado = mergse_sort(entrada.copy())
 
     assert resultado == esperado

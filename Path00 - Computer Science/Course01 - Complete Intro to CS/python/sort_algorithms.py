@@ -37,3 +37,32 @@ def insertion_sort(array: list):
     
     return array
 
+def mergse_sort(array: list):
+    if len(array) <= 1:
+        return array
+
+    mid = len(array) // 2
+    left_half = mergse_sort(array[:mid])
+    right_half = mergse_sort(array[mid:])
+
+    return merge(left_half, right_half)
+
+def merge(left: list, right: list):
+    sorted_array = []
+    left_index = 0
+    right_index = 0
+
+    while left_index < len(left) and right_index < len(right):
+        if left[left_index] < right[right_index]:
+            sorted_array.append(left[left_index])
+            left_index += 1
+        else:
+            sorted_array.append(right[right_index])
+            right_index += 1
+
+    if left_index < len(left):
+        sorted_array.extend(left[left_index:])
+    if right_index < len(right):
+        sorted_array.extend(right[right_index:])
+
+    return sorted_array
