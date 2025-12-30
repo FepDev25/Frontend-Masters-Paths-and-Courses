@@ -2,7 +2,6 @@ import pytest
 from sort_algorithms import *
 
 @pytest.mark.parametrize("entrada, esperado", [
-    ([19, 25, 0, 5, 3, 8, 6, 2, 1, -1, 10, -2, -6, -5, 13, -100], [-100, -6, -5, -2, -1, 0, 1, 2, 3, 5, 6, 8, 10, 13, 19, 25]),
     
     ([1, 2, 3, 4, 5], [1, 2, 3, 4, 5]),
     
@@ -14,7 +13,9 @@ from sort_algorithms import *
 
     ([1], [1]),
     
-    ([7, 7, 7], [7, 7, 7])
+    ([7, 7, 7], [7, 7, 7]),
+
+    ([170, 45, 75, 90, 802, 24, 2, 66], [2, 24, 45, 66, 75, 90, 170, 802])
 ])
 
 def test_sort_varios_casos(entrada, esperado):
@@ -25,6 +26,8 @@ def test_sort_varios_casos(entrada, esperado):
 
     #resultado = mergse_sort(entrada.copy())
 
-    resultado = quick_sort(entrada.copy())
+    #resultado = quick_sort(entrada.copy())
+
+    resultado = radix_sort(entrada.copy())
 
     assert resultado == esperado

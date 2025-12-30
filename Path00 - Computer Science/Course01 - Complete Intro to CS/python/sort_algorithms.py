@@ -1,3 +1,5 @@
+import math
+
 def bubble_sort(array: list):
     n = len(array)
     cambios = True
@@ -82,3 +84,57 @@ def quick_sort(array: list):
             right.append(array[i])
 
     return quick_sort(left) + [pivot] + quick_sort(right)
+
+
+def obtener_digito(numero, lugar):
+    # Obtiene el dígito en la posición 'lugar' (0 es unidades, 1 decenas, etc.)
+    # Matemáticamente: (num // 10^lugar) % 10
+    return (numero // (10 ** lugar)) % 10
+
+def contar_digitos(numero):
+    # Cuenta cuántos dígitos tiene un número usando logaritmo
+    if numero == 0: return 1
+    return int(math.log10(abs(numero))) + 1
+
+def obtener_max_digitos(lista):
+    # Encuentra cuántos dígitos tiene el número más grande
+    max_digitos = 0
+    for num in lista:
+        max_digitos = max(max_digitos, contar_digitos(num))
+    return max_digitos
+
+def radix_sort(lista):
+    if not lista:
+        return lista
+
+    # Saber cuántas rondas necesitamos (ej: si el mayor es 1000, son 4 rondas)
+    max_k = obtener_max_digitos(lista)
+    print(f"Número máximo de dígitos: {max_k}")
+    print(f"Lista inicial: {lista}\n")
+
+    for k in range(max_k):
+        print(f"--- Pasada {k + 1} (analizando dígito en posición {k}) ---")
+        
+        # Creamos 10 cubetas vacías (buckets)
+        buckets = [[] for _ in range(10)]
+        
+        # Llenar cubetas (Distribución)
+        for numero in lista:
+            digito = obtener_digito(numero, k)
+            buckets[digito].append(numero)
+            print(f"  Número {numero} -> dígito {digito} -> bucket[{digito}]")
+        
+        print(f"\nCubetas después de distribuir:")
+        for i, bucket in enumerate(buckets):
+            if bucket:  # Solo mostrar cubetas no vacías
+                print(f"  Bucket[{i}]: {bucket}")
+        
+        # Reconstruir la lista (Recolección)
+        # Aplanamos las cubetas de nuevo en una sola lista
+        lista = []
+        for bucket in buckets:
+            lista.extend(bucket)
+        
+        print(f"Lista después de recolectar: {lista}\n")
+            
+    return lista
